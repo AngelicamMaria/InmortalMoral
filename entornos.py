@@ -13,6 +13,8 @@ class Entorno(object):
     """
     Clase abstracta para entornos
 EDITADPPP
+ArderRAAA!!!!!!!!!!
+Prueboitaaaa
     """
 
     def transicion(self, estado, accion):
