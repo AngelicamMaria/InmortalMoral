@@ -9,12 +9,10 @@ entornos.py
 
 __author__ = 'juliowaissman'
 
+
 class Entorno(object):
     """
-    Clase abstracta para entornos
-EDITADPPP
-ArderRAAA!!!!!!!!!!
-Prueboitaaaa
+
     """
 
     def transicion(self, estado, accion):
@@ -26,7 +24,58 @@ Prueboitaaaa
                  agente aplica la acción o una tupla de pares ordenados 
                  con el posible estado nuevo y su probabilidad.
 
+        si robot ='A':
+            si accion ='limpiar' y A= 'Sucio'
+                return 'A', 'Limpio', B, C, D, E, F
+            si accion = 'ir Derecha'
+                return 'B',A,B,C,D,E,F
+            si accion = 'Subir' and A=B=C='Limpio'
+                return 'D', A,B,C,D,E,F
+        si robot ='C':
+            si accion ='limpiar' y C= 'Sucio'
+                return 'C', A, B,'Limpio', D, E, F
+            si accion = 'ir Izquierda'
+                return 'B',A,B,C,D,E,F
+            si accion = 'Subir' and A=B=C='Limpio'
+                return 'E', A,B,C,D,E,F
+        si robot ='D':
+            si accion ='limpiar' y D= 'Sucio'
+                return 'D', A, B, C, 'Limpio', E, F
+            si accion = 'irIzquierda'
+                return 'E',A,B,C,D,E,F
+            si accion = 'Bajar' and D=E=F='Limpio'
+                return 'A', A,B,C,D,E,F
+        si robot ='F':
+            si accion ='limpiar' y F= 'Sucio'
+                return 'F', A, B,C, D, E, 'Limpio'
+            si accion = 'irDerecha'
+                return 'E',A,B,C,D,E,F
+            si accion = 'Bajar' and D=F=E='Limpio'
+                return 'C', A,B,,C,D,E,F
+
+          si robot ='B':
+            si accion ='limpiar' y B= 'Sucio'
+                return 'B', A,'Limpio',C, D, E, F
+            si accion = 'irDerecha'
+                return 'C',A,B,C,D,E,F
+            si accion = 'irIzquierda'
+                return 'A',A,B,C,D,E,F
+            si accion = 'Subir' and A=B=C='Limpio'
+                return 'E', A,B,C,D,E,F
+
+          si robot ='E':
+            si accion ='limpiar' y E= 'Sucio'
+                return 'E', A,B,C, D, 'Limpio', F
+            si accion = 'irDerecha'
+                return 'F',A,B,C,D,E,F
+            si accion = 'irIzquierda'
+                return 'D',A,B,C,D,E,F
+            si accion = 'Bajar' and D=E=F='Limpio'
+                return 'B', A,B,C,D,E,F
+        si accion ='noOp'
+            return robot,A,B,C,D,E,F
         """
+
         pass
 
     def sensores(self, estado):

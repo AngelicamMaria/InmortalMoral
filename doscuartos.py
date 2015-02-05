@@ -39,9 +39,9 @@ class DosCuartos(entornos.Entorno):
 
         robot, A, B, C, D, E, F = estado
 
-        return (('A', A, B, C) if accion == 'irA' else
-                ('B', A, B) if accion == 'irB' else
-                (robot, A, B) if accion == 'noOp' else
+        return (('A', A, B, C,D,E,F) if accion == 'irIzquierda' accion == 'Subir' else
+                ('B', A, B,C,D,E,F) if accion == 'irDerecha' or accion == 'Subir' else
+                (robot, A, B,C,D,E,F) if accion == 'noOp' else
                 ('A', 'limpio', B) if accion == 'limpiar' and robot == 'A' else
                 ('B', A, 'limpio'))
 
@@ -50,7 +50,7 @@ class DosCuartos(entornos.Entorno):
         return robot, A if robot == 'A' else B
 
     def accion_legal(self, estado, accion):
-        return accion in ('irA', 'irB', 'limpiar', 'noOp')
+        return accion in ('irDerecha', 'irIzquierda', 'Subir', 'Bajar','limpiar', 'noOp')
 
     def desempeno_local(self, estado, accion):
         robot, A, B = estado
@@ -78,11 +78,11 @@ class AgenteReactivoDoscuartos(entornos.Agente):
     def programa(self, percepcion):
         robot, situacion = percepcion
         return ('limpiar' if situacion == 'sucio' else
-                'irDerecha' if robot == 'B' || robot == 'A' else
-				'irIzquierda' if robot == 'B' || robot == 'C' else
-				'irDerecha' if robot == 'D' || robot == 'E' else
-				'irIzquierda' if robot == 'E' || robot == 'F' else
-                'Subir' if robot == 'B' || robot == 'C' || robot == 'A' else
+                'irDerecha' if robot == 'B' or robot == 'A' else
+				'irIzquierda' if robot == 'B' or robot == 'C' else
+				'irDerecha' if robot == 'D' or robot == 'E' else
+				'irIzquierda' if robot == 'E' or robot == 'F' else
+                'Subir' if robot == 'B' or robot == 'C' or robot == 'A' else
 				'Bajar'
 				)
 """
@@ -103,7 +103,7 @@ class AgenteReactivoModeloDosCuartos(entornos.Agente):
         """
        """ self.modelo = ['A', 'sucio', 'sucio']
         """
-		self.modelo = ['A', 'sucio', 'sucio','sucio','Sube'] 
+		self.modelo = ['A', 'sucio', 'sucio','sucio', 'sucio', 'sucio','sucio','Sube'] 
 		"""
 		Cuarto, Los tres cuartos se muestras si estan juntos, sube o baja
 		"""
@@ -126,13 +126,14 @@ class AgenteReactivoModeloDosCuartos(entornos.Agente):
         A,B,C,D,E,F = self.modelo[1], self.modelo[2], self.modelo[3], self.modelo[4], self.modelo[5], self.modelo[6]
         return ('noOp' if A == B == C == D == E == F =='limpio' else
                 'limpiar' if situacion == 'sucio' else
-                'irDerecha' if robot == 'A' || robot==  'B' else
-                'irIzquierda' if robot == 'E' || robot==  'F' else
-				'irDerecha' if robot == 'D' || robot==  'E' else
-                'irIzquierda' if robot == 'B' || robot==  'C' else
-				'Subir' if robot == 'A' || robot == 'B' || robot == 'C' else  
-				'Bajar' if robot == 'D' || robot == 'F' || robot == 'E' 
+                'irDerecha' if robot == 'A' or robot ==  'B' else
+                'irIzquierda' if robot == 'E' or robot ==  'F' else
+				'irDerecha' if robot == 'D' or robot ==  'E' else
+                'irIzquierda' if robot == 'B' or robot == 'C' else
+				'Subir' if robot == 'A' or robot == 'B' or robot == 'C' and A == B == C == 'limpio' else  
+				'Bajar' if robot == 'D' or robot == 'F' or robot == 'E' and D == E == F == 'limpio'  
 				)
+				
 				""""
 				Cuartos:
 				Piso 2: D,E,F
@@ -147,7 +148,7 @@ def test():
     """
     print "Prueba del entorno de dos cuartos con un agente aleatorio"
     entornos.simulador(DosCuartos(),
-                       AgenteAleatorio(['irA', 'irB', 'limpiar', 'noOp']),
+                       AgenteAleatorio(['irDerecha', 'irIzquierda', 'Subir', 'Bajar', 'limpiar', 'noOp']),
                        ('A', 'sucio', 'sucio'), 100)
 
     print "Prueba del entorno de dos cuartos con un agente reactivo"
