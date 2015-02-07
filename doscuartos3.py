@@ -14,7 +14,7 @@ import entornos3
 from random import choice
 
 
-class DosCuartos(entornos.Entorno):
+class DosCuartos(entornos3.Entorno):
     """
     Clase para un entorno de dos cuartos. Muy sencilla solo regrupa métodos.
 
@@ -56,7 +56,7 @@ class DosCuartos(entornos.Entorno):
         return 0 if accion == 'noOp' and A == B == 'limpio' else -1
 
 
-class AgenteAleatorio(entornos.Agente):
+class AgenteAleatorio(entornos3.Agente):
     """
     Un agente que solo regresa una accion al azar entre las acciones legales
 
@@ -68,7 +68,7 @@ class AgenteAleatorio(entornos.Agente):
         return choice(self.acciones)
 
 
-class AgenteReactivoDoscuartos(entornos.Agente):
+class AgenteReactivoDoscuartos(entornos3.Agente):
 
 
     """
@@ -84,7 +84,7 @@ class AgenteReactivoDoscuartos(entornos.Agente):
                 'irB')
 
 
-class AgenteReactivoModeloDosCuartos(entornos.Agente):
+class AgenteReactivoModeloDosCuartos(entornos3.Agente):
     """
     Un agente reactivo basado en modelo
 
@@ -118,17 +118,17 @@ def test():
 
     """
     print "Prueba del entorno de dos cuartos con un agente aleatorio"
-    entornos.simulador(DosCuartos(),
+    entornos3.simulador(DosCuartos(),
                        AgenteAleatorio(['irA', 'irB', 'limpiar', 'noOp']),
                        ('A', 'sucio', 'sucio'), 100)
 
     print "Prueba del entorno de dos cuartos con un agente reactivo"
-    entornos.simulador(DosCuartos(),
+    entornos3.simulador(DosCuartos(),
                        AgenteReactivoDoscuartos(),
                        ('A', 'sucio', 'sucio'), 100)
 
     print "Prueba del entorno de dos cuartos con un agente reactivo"
-    entornos.simulador(DosCuartos(),
+    entornos3.simulador(DosCuartos(),
                        AgenteReactivoModeloDosCuartos(),
                        ('A', 'sucio', 'sucio'), 100)
 

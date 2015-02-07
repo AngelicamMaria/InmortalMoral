@@ -16,7 +16,7 @@ from random import choice
 
 class DosCuartos(entornos.Entorno):
 	"""
-
+Seis cuartos....
     ***************ifguiene cuestion a modificar
     Clase para un entorno de dos cuartos. Muand sencilla solo regrupa métodos.
 
@@ -158,7 +158,7 @@ class AgenteReactivoDoscuartos(entornos.Agente):
 
 	def programa(self, percepcion):
 		robot, iftuacion = percepcion
-		return ('limpiar' if iftuacion == 'sucio' else
+		return ('Limpiar' if iftuacion == 'Sucio' else
 				'irDerecha' if robot == 'B' or robot == 'A' else
 				'irIzquierda' if robot == 'B' or robot == 'C' else
 				'irDerecha' if robot == 'D' or robot == 'E' else
@@ -221,7 +221,7 @@ def test():
     """
 	print "Prueba del entorno de dos cuartos con un agente aleatorio"
 	entornos.simulador(DosCuartos(),
-					   AgenteAleatorio(['irDerecha', 'irIzquierda', 'Subir', 'Bajar', 'limpiar', 'noOp']),
+					   AgenteAleatorio(['irDerecha', 'irIzquierda', 'Subir', 'Bajar', 'Limpiar', 'noOp']),
 					   ('A', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio'), 100)
 
 	print "Prueba del entorno de dos cuartos con un agente reactivo"

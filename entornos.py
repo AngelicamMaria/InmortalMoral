@@ -63,11 +63,11 @@ class Entorno(object):
         """
         robot, A, B, C, D, E, F = estado
 		return((robot, A , B, C, D, E, F) if robot == 'A' else
-			   (B) if robot == 'B' else
-			   (C) if robot == 'C' else
-			   (D) if robot == 'D' else
-			   (E) if robot == 'E' else
-			   (F))
+			   ('B', A , B, C, D, E, F) if robot == 'B' else
+			   ('C', A , B, C, D, E, F)  if robot == 'C' else
+			   ('D', A , B, C, D, E, F) if robot == 'D' else
+			   ('E', A , B, C, D, E, F) if robot == 'E' else
+			   ('F', A , B, C, D, E, F))
 
         pass
 
@@ -80,7 +80,7 @@ class Entorno(object):
 
         """
         robot, A, B, C, D, E, F = estado
-        return 0 if A == B == C == D == E == F == 'Limpio' else -1
+        return 0 if accion == 'noOp' and A == B == C == D == E == F == 'Limpio' else -1
 
         pass
 
@@ -93,6 +93,7 @@ class Entorno(object):
 
         Por default acepta cualquier acción.
         """
+
         return True
 
 
@@ -109,7 +110,31 @@ class Agente(object):
         @return: accion: Acción seleccionada por el agente, utilizando su programa de agente.
 
         """
-        return choice(self.acciones)
+        robot, situacion = percepcion
+        if robot == A and A == 'Sucio':
+            return (robot, 'Sucio')
+        if robot == A and A == 'Limpio':
+            return (robot, 'Limpio')
+        if robot == B and B == 'Sucio':
+            return (robot, 'Sucio')
+        if robot == B and B == 'Limpio':
+            return (robot, 'Limpio')
+        if robot == C and C == 'Sucio':
+            return (robot, 'Sucio')
+        if robot == C and C == 'Limpio':
+            return (robot, 'Limpio')
+        if robot == D and D == 'Sucio':
+            return (robot, 'Sucio')
+        if robot == D and D == 'Limpio':
+            return (robot, 'Limpio')
+        if robot == E and E == 'Sucio':
+            return (robot, 'Sucio')
+        if robot == E and E == 'Limpio':
+            return (robot, 'Limpio')
+        if robot == F and F == 'Sucio':
+            return (robot, 'Sucio')
+        if robot == F and F == 'Limpio':
+            return (robot, 'Limpio')
 
         pass
 

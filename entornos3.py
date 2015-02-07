@@ -24,6 +24,7 @@ class Entorno(object):
         una tupla de pares ordenados con el posible estado nuevo y su probabilidad.
 
         """
+
         pass
 
     def sensores(self, estado):
@@ -33,6 +34,15 @@ class Entorno(object):
         @return: Tupla con los valores que se perciben de un entorno
 
         """
+        robot, A, B = estado
+        if A == 'sucio' and robot == A:
+            return (robot, 'sucio')
+        if A == 'limpio' and robot == A:
+            return (robot, 'limpio')
+        if B == 'sucio' and robot == B:
+            return (robot, 'sucio')
+        if B == 'limpio' and robot == B:
+            return (robot, 'limpio')
         pass
 
     def desempeno_local(self, estado, accion):
@@ -41,8 +51,9 @@ class Entorno(object):
         @param accion: Uno de los elementos de acciones_legales( estado)
 
         @return: un número flotante con el desempeño de aplicar la accion en el estado
-
         """
+        robot, A, B = estado
+        return 0 if accion == 'noOp' and A == B == 'limpio' else -1
         pass
 
     def accion_legal(self, estado, accion):
@@ -70,6 +81,11 @@ class Agente(object):
         @return: accion: Acción seleccionada por el agente, utilizando su programa de agente.
 
         """
+        robot, situacion = percepcion
+        return ('limpiar' if situacion == 'sucio' else
+                'irA' if robot == 'B' else
+                'irB')
+
         pass
 
 
