@@ -10,7 +10,7 @@ Ejemplo de un entorno muy simple y agentes idem
 
 __author__ = 'AngelicaMaria'
 
-import entornos
+import entornos3
 from random import choice
 
 

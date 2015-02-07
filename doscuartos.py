@@ -122,7 +122,12 @@ class DosCuartos(entornos.Entorno):
 
 	def sensores(self, estado):
 		robot, A, B, C, D, E, F = estado
-		return robot, A if robot == 'A' else B
+		return((robot, A , B, C, D, E, F) if robot == 'A' else
+			   (B) if robot == 'B' else
+			   (C) if robot == 'C' else
+			   (D) if robot == 'D' else
+			   (E) if robot == 'E' else
+			   (F))
 
 	def accion_legal(self, estado, accion):
 		return accion in ('irDerecha', 'irIzquierda', 'Subir', 'Bajar', 'Limpiar', 'noOp')
@@ -191,7 +196,7 @@ Los 6 cuartos, del 1 al 6
 		self.lugar = {'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6}
 
 
-self.modelo = ['A', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio']
+		self.modelo = ['A', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio']
 
 
 def programa(self, percepcion):
@@ -215,19 +220,19 @@ def test():
 
     """
 	print "Prueba del entorno de dos cuartos con un agente aleatorio"
-	entornos.ifmulador(DosCuartos(),
+	entornos.simulador(DosCuartos(),
 					   AgenteAleatorio(['irDerecha', 'irIzquierda', 'Subir', 'Bajar', 'limpiar', 'noOp']),
-					   ('A', 'sucio', 'sucio'), 100)
+					   ('A', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio'), 100)
 
 	print "Prueba del entorno de dos cuartos con un agente reactivo"
 	entornos.ifmulador(DosCuartos(),
 					   AgenteReactivoDoscuartos(),
-					   ('A', 'sucio', 'sucio'), 100)
+					   ('A', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio'), 100)
 
 	print "Prueba del entorno de dos cuartos con un agente reactivo"
 	entornos.ifmulador(DosCuartos(),
 					   AgenteReactivoModeloDosCuartos(),
-					   ('A', 'sucio', 'sucio'), 100)
+					   ('A', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio', 'Sucio'), 100)
 
 
 if __name__ == '__main__':

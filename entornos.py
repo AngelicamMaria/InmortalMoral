@@ -6,7 +6,9 @@ entornos.py
 
 
 """
-
+"""
+Seis cuartos
+"""
 __author__ = 'AngelicaMaria'
 
 
@@ -24,7 +26,32 @@ class Entorno(object):
                  agente aplica la acción o una tupla de pares ordenados 
                  con el posible estado nuevo y su probabilid
         """
+        if not self.accion_legal(estado, accion):
+			raise ValueError("La accion no es legal para este estado")
 
+		robot, A, B, C, D, E, F = estado
+
+		return (('A', 'Limpio', B, C, D, E, F) if accion == 'Limpiar' and A == 'Sucio' and robot == 'A' else
+				('B', A, B, C, D, E, F) if accion == 'irDerecha' and robot == 'A' else
+				('D', A, B, C, D, E, F) if accion == 'Subir' and A == B == C == 'Limpio' and robot == 'A' else
+				('B', A, 'Limpio', C, D, E, F) if accion == 'Limpiar' and B == 'Sucio' and robot == 'B' else
+				('C', A, B, C, D, E, F) if accion == 'irDerecha' and robot == 'B' else
+				('E', A, B, C, D, E, F) if accion == 'Subir' and A == B == C == 'Limpio' and robot == 'B' else
+				('A', A, B, C, D, E, F) if accion == 'irIzquierda' and robot == 'B' else
+				('C', A, B, 'Limpio', D, E, F) if accion == 'Limpiar' and C == 'Sucio' and robot == 'C' else
+				('B', A, B, C, D, E, F) if accion == 'irIzquierda' and robot == C else
+				('F', A, B, C, D, E, F) if accion == 'Subir' and A == B == C == 'Limpio' and robot == 'C' else
+				('D', A, B, C, 'Limpio', E, F) if accion == 'Limpiar' and 'D' == 'Sucio' and robot == 'D' else
+				('E', A, B, C, D, E, F) if accion == 'irDerecha' and robot == 'D' else
+				('A', A, B, C, D, E, F) if accion == 'Bajar' and D == E == F == 'Limpio' and robot == 'D' else
+				('F', A, B, C, D, E, 'Limpio') if accion == 'Limpiar' and F == 'Sucio' and robor == 'F' else
+				('E', A, B, C, D, E, F) if accion == 'irIzquierda' and robot == 'F' else
+				('C', A, B, C, D, E, F) if accion == 'Bajar' and D == F == E == 'Limpio' and robot == 'F' else
+				('E', A, B, C, D, 'Limpio', F) if accion == 'Limpiar' and E == 'Sucio' and robot == 'E' else
+				('F', A, B, C, D, E, F) if accion == 'irDerecha' and robot == 'E' else
+				('D', A, B, C, D, E, F) if accion == 'irIzquierda' and robot == 'E' else
+				('B', A, B, C, D, E, F) if accion == 'Bajar' and D == E == F == 'Limpio' and robot == 'E' else
+				(robot, A, B, C, D, E, F))
         pass
 
     def sensores(self, estado):
@@ -34,6 +61,14 @@ class Entorno(object):
         @return: Tupla con los valores que se perciben de un entorno
 
         """
+        robot, A, B, C, D, E, F = estado
+		return((robot, A , B, C, D, E, F) if robot == 'A' else
+			   (B) if robot == 'B' else
+			   (C) if robot == 'C' else
+			   (D) if robot == 'D' else
+			   (E) if robot == 'E' else
+			   (F))
+
         pass
 
     def desempeno_local(self, estado, accion):
@@ -44,6 +79,9 @@ class Entorno(object):
         @return: un número flotante con el desempeño de aplicar la accion en el estado
 
         """
+        robot, A, B, C, D, E, F = estado
+        return 0 if A == B == C == D == E == F == 'Limpio' else -1
+
         pass
 
     def accion_legal(self, estado, accion):
@@ -55,17 +93,6 @@ class Entorno(object):
 
         Por default acepta cualquier acción.
         """
-
-        robot, A, B, C, D, E, F = estado
-        if accion == 'irDerecha' and robot == 'C' or robot == 'F':
-            return false
-        if accion == 'irIzquierda' and robot == 'A' or robot == 'D':
-            return false
-        if accion == 'Subir' and robot == 'D' or robot == 'E' or robot == 'F':
-            return false
-        if accion == 'Bajar' and robot == 'A' or robot == 'B' or robot == 'C':
-            return false
-
         return True
 
 
@@ -73,7 +100,6 @@ class Agente(object):
     """
     Clase abstracta para un agente que interactua con un 
     entorno discreto determinista observable.
-
     """
 
     def programa(self, percepcion):
@@ -83,6 +109,8 @@ class Agente(object):
         @return: accion: Acción seleccionada por el agente, utilizando su programa de agente.
 
         """
+        return choice(self.acciones)
+
         pass
 
 
@@ -109,15 +137,12 @@ def simulador(entorno, agente, estado_inicial, pasos=10, verbose=True):
         estado = estado_n
 
     if verbose:
-        print "Simulacion de entorno tipo"  + \
+        print "Simulacion de entorno tipo" + \
               str(type(entorno)) + \
               "con el agente tipo " + \
               str(type(agente)) + "\n"
 
-        print 'Paso'.center(10) + \ 
-              'Estado'.center(40) + \ 
-              'Accion'.center(25) + \ 
-              u'Desempeño'.center(15)
+        print 'Paso'.center(10) + 'Estado'.center(40) + 'Accion'.center(25) + 'Desempeño \n'.center(15)
 
         print '_' * (10 + 40 + 25 + 15)
         
