@@ -7,7 +7,7 @@ entornos.py
 
 """
 
-__author__ = 'juliowaissman'
+__author__ = 'AngelicaMaria'
 
 
 class Entorno(object):
@@ -55,6 +55,17 @@ class Entorno(object):
 
         Por default acepta cualquier acción.
         """
+
+        robot, A, B, C, D, E, F = estado
+        if accion == 'irDerecha' and robot == 'C' or robot == 'F':
+            return false
+        if accion == 'irIzquierda' and robot == 'A' or robot == 'D':
+            return false
+        if accion == 'Subir' and robot == 'D' or robot == 'E' or robot == 'F':
+            return false
+        if accion == 'Bajar' and robot == 'A' or robot == 'B' or robot == 'C':
+            return false
+
         return True
 
 
@@ -98,9 +109,9 @@ def simulador(entorno, agente, estado_inicial, pasos=10, verbose=True):
         estado = estado_n
 
     if verbose:
-        print "\n\nSimulacion de entorno tipo " + \ 
-              str(type(entorno)) + \ 
-              " con el agente tipo " + \ 
+        print "Simulacion de entorno tipo"  + \
+              str(type(entorno)) + \
+              "con el agente tipo " + \
               str(type(agente)) + "\n"
 
         print 'Paso'.center(10) + \ 
