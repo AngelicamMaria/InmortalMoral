@@ -11,7 +11,9 @@ Ejemplo de un entorno muy simple y agentes idem
 __author__ = 'AngelicaMaria'
 
 import entornos3
+import random
 from random import choice
+
 
 
 class DosCuartos(entornos3.Entorno):
@@ -49,7 +51,12 @@ class DosCuartos(entornos3.Entorno):
         return robot, A if robot == 'A' else B
 
     def accion_legal(self, estado, accion):
-        return accion in ('irA', 'irB', 'limpiar', 'noOp')
+        i = random.randint(0, 101)
+        if i <= 80:
+            return 'limpiar'
+        else:
+            return accion in ('irA', 'irB', 'noOp')
+
 
     def desempeno_local(self, estado, accion):
         robot, A, B = estado
@@ -133,4 +140,4 @@ def test():
                        ('A', 'sucio', 'sucio'), 100)
 
 if __name__ == '__main__':
-    test()
+     test()

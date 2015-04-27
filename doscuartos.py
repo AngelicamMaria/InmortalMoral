@@ -236,4 +236,13 @@ def test():
 
 
 if __name__ == '__main__':
-	test()
+	"""
+	Para 6 cuartos en 100 corridas
+	"""
+	i = 0
+	while i <= 100:
+		test()
+		i = i + 1
+
+	"""
+	"""
